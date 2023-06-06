@@ -18,6 +18,7 @@ namespace ConsultorioMedico.Aplicacao
         {
             services.AddScoped<ICadMedicosService, CadMedicosService>();
             services.AddScoped<ICadPacientesService, CadPacientesService>();
+            services.AddScoped<IProntuariosService, ProntuariosService>();
 
             return services;
         }

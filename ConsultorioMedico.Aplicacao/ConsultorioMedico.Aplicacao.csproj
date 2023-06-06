@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ConsultorioMedico\ConsultorioMedico.Dominio.csproj" />
+    <ProjectReference Include="..\ConsultorioMedico.Dominio\ConsultorioMedico.Dominio.csproj" />
   </ItemGroup>
 
 </Project>
