@@ -14,6 +14,7 @@ namespace ConsultorioMedico.Aplicacao.Services
 
         private readonly ICadPacientesService _cadPacienteService;
         private readonly ICadMedicosService _cadMedicoService;
+        private static readonly List<CadPacientes> _cadPacientesList = new List<CadPacientes>();
 
         public ProntuariosService(ICadPacientesService cadPacientesService, ICadMedicosService cadMedicosService)
         {
@@ -21,10 +22,11 @@ namespace ConsultorioMedico.Aplicacao.Services
             _cadMedicoService = cadMedicosService;
         }
 
-        public async Task<ProntuariosViewModel> CriarProntuario(ProntuariosInputModel inputModel)
+        public async Task<ProntuariosViewModel> CriarProntuario(ProntuariosInputModel model)
         {
-            var pacienteViewModel = await _cadPacienteService.GetByCode(inputModel.Paciente);
-            var medicoViewModel = await _cadMedicoService.GetByCode(inputModel.Medico);
+            var pacienteViewModel = await _cadPacienteService.GetByCode(model.Paciente);
+            var medicoViewModel = await _cadMedicoService.GetByCode(model.Medico);
+            var cadPacientes = _cadPacientesList.FirstOrDefault(m => m.Nome == model.Paciente);
 
             if (pacienteViewModel == null || medicoViewModel == null)
             {
@@ -34,7 +36,7 @@ namespace ConsultorioMedico.Aplicacao.Services
             var paciente = new CadPacientes(pacienteViewModel.Nome, pacienteViewModel.CPF);
             var medico = new CadMedicos(medicoViewModel.Nome, medicoViewModel.CPF, medicoViewModel.Especialidade);
 
-            var prontuario = new Prontuarios(medico, paciente, inputModel.TextoProntuario);
+            var prontuario = new Prontuarios(medico, paciente, model.TextoProntuario);
 
             var prontuarioViewModel = new ProntuariosViewModel
             {
