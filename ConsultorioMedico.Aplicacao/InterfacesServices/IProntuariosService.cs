@@ -5,7 +5,8 @@ namespace ConsultorioMedico.Aplicacao.InterfacesServices
 {
     public interface IProntuariosService
     {
-        Task<ProntuariosViewModel> CriarProntuario(ProntuariosInputModel model);
+        Task<ProntuariosViewModel> CriarProntuarioPorId(ProntuariosInputModel model);
+        Task<ProntuariosViewModel> CriarProntuarioPoNome(ProntuariosInputModel model);
         Task<ProntuariosViewModel> ConsultarProntuarioPorIdMedico(string code);
         Task<ProntuariosViewModel> ConsultarProntuarioPorIdPaciente(string code);
         Task<bool> EditarProntuario(string id, ProntuariosInputModel model);
