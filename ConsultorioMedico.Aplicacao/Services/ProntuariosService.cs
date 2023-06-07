@@ -21,35 +21,8 @@ namespace ConsultorioMedico.Aplicacao.Services
             _cadMedicoService = cadMedicosService;
         }
 
-        public async Task<ProntuariosViewModel> CriarProntuario(ProntuariosInputModel model)
+        public async Task<ProntuariosViewModel> CriarProntuarioPorId(ProntuariosInputModel model)
         {
-            //var pacienteViewModel = await _cadPacienteService.GetByCode(model.Paciente);
-            //var medicoViewModel = await _cadMedicoService.GetByCode(model.Medico);
-
-            //if (pacienteViewModel == null || medicoViewModel == null)
-            //{
-            //    return null; // Tratar o caso em que o paciente ou médico não foi encontrado
-            //}
-
-            //var paciente = new CadPacientes(pacienteViewModel.Nome, pacienteViewModel.CPF);
-            //var medico = new CadMedicos(medicoViewModel.Nome, medicoViewModel.CPF, medicoViewModel.Especialidade);
-
-            //var prontuario = new Prontuarios(medico, paciente, model.TextoProntuario);
-
-            //var prontuarioViewModel = new ProntuariosViewModel
-            //{
-            //    IdPaciente = paciente.Id,
-            //    NomePaciente = paciente.Nome,
-            //    CPFPaciente = paciente.CPF,
-            //    IdMedico = medico.Id,
-            //    NomeMedico = medico.Nome,
-            //    CPFMedico = medico.CPF,
-            //    EspecialidadeMedico = medico.Especialidade,
-            //    TextoProntuario = prontuario.TextoProntuario
-            //};
-
-            //return prontuarioViewModel;
-
             var pacientes = await _cadPacienteService.GetAll();
             var medicos = await _cadMedicoService.GetAll();
 
@@ -58,12 +31,12 @@ namespace ConsultorioMedico.Aplicacao.Services
 
             var medicoViewModel = medicos.FirstOrDefault(m => m.Nome == model.Medico);
 
-            if (pacienteViewModel == null || medicoViewModel == null)
+            if (pacienteViewModelByCode == null || medicoViewModel == null)
             {
                 return null; // Tratar o caso em que o paciente ou médico não foi encontrado
             }
 
-            var paciente = new CadPacientes(pacienteViewModel.Nome, pacienteViewModel.CPF);
+            var paciente = new CadPacientes(pacienteViewModelByCode.Nome, pacienteViewModelByCode.CPF);
             var medico = new CadMedicos(medicoViewModel.Nome, medicoViewModel.CPF, medicoViewModel.Especialidade);
 
             var prontuario = new Prontuarios(medico, paciente, model.TextoProntuario);
@@ -83,6 +56,40 @@ namespace ConsultorioMedico.Aplicacao.Services
             return prontuarioViewModel;
         }
 
+        public async Task<ProntuariosViewModel> CriarProntuarioPoNome(ProntuariosInputModel model)
+        {
+            var pacientes = await _cadPacienteService.GetAll();
+            var medicos = await _cadMedicoService.GetAll();
+
+            var pacienteViewModel = pacientes.FirstOrDefault(p => p.Nome == model.Paciente);
+            var pacienteViewModelByCode = pacientes.FirstOrDefault(p => p.Id == Guid.Parse(model.Paciente));
+
+            var medicoViewModel = medicos.FirstOrDefault(m => m.Nome == model.Medico);
+
+            if (pacienteViewModelByCode == null || medicoViewModel == null)
+            {
+                return null; // Tratar o caso em que o paciente ou médico não foi encontrado
+            }
+
+            var paciente = new CadPacientes(pacienteViewModelByCode.Nome, pacienteViewModelByCode.CPF);
+            var medico = new CadMedicos(medicoViewModel.Nome, medicoViewModel.CPF, medicoViewModel.Especialidade);
+
+            var prontuario = new Prontuarios(medico, paciente, model.TextoProntuario);
+
+            var prontuarioViewModel = new ProntuariosViewModel
+            {
+                IdPaciente = paciente.Id,
+                NomePaciente = paciente.Nome,
+                CPFPaciente = paciente.CPF,
+                IdMedico = medico.Id,
+                NomeMedico = medico.Nome,
+                CPFMedico = medico.CPF,
+                EspecialidadeMedico = medico.Especialidade,
+                TextoProntuario = prontuario.TextoProntuario
+            };
+
+            return prontuarioViewModel;
+        }
 
         public Task<ProntuariosViewModel> ConsultarProntuarioPorIdMedico(string code)
         {
