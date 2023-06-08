@@ -4,9 +4,12 @@ namespace ConsultorioMedico.Aplicacao.InputModels
 {
     public class ProntuariosInputModel
     {
-        public string Medico { get; set; }
-        public string Paciente { get; set; }
+        public CadMedicos Medico { get; set; }
+        public CadPacientes Paciente { get; set; }
         public string TextoProntuario { get; set; }
+
+        public Prontuarios ToEntity()
+            => new(Medico, Paciente, TextoProntuario);
 
     }
 }
