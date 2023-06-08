@@ -16,10 +16,10 @@ namespace ConsultorioMedico.API.Controllers
             _prontuariosService = prontuariosService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateProntuario(ProntuariosInputModel inputModel)
+        [HttpPost("create-prontuario-by-id")]
+        public async Task<IActionResult> CreateProntuarioById(ProntuariosInputModel inputModel)
         {
-            var prontuarioViewModel = await _prontuariosService.CriarProntuario(inputModel);
+            var prontuarioViewModel = await _prontuariosService.CriarProntuarioPorId(inputModel);
 
             if (prontuarioViewModel == null)
             {
@@ -28,5 +28,27 @@ namespace ConsultorioMedico.API.Controllers
 
             return Ok(prontuarioViewModel);
         }
+
+        [HttpPost("create-prontuario-by-name")]
+        public async Task<IActionResult> CreateProntuarioByName(ProntuariosInputModel inputModel)
+        {
+            var prontuarioViewModel = await _prontuariosService.CriarProntuarioPorNome(inputModel);
+
+            if (prontuarioViewModel == null)
+            {
+                return BadRequest("Paciente ou médico não encontrado.");
+            }
+
+            return Ok(prontuarioViewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetByName(string name)
+        {
+            var prontuariosViewModel = await _prontuariosService.ConsultarProntuarioPorNomeMedico(name);
+            return Ok(prontuariosViewModel);
+        }
+
+
     }
 }
