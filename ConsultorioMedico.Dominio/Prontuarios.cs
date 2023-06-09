@@ -13,6 +13,15 @@
             TextoProntuario = textoProntuario;
         }
 
+        public void Excluir()
+        {
+            Ativo = false;
+        }
+
+        public void Update(string textoProntuario)
+        {
+            TextoProntuario = textoProntuario;
+        }
 
     }
 }
