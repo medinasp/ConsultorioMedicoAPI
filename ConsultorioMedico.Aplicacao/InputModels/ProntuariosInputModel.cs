@@ -1,6 +1,4 @@
-﻿using ConsultorioMedico.Aplicacao.InterfacesServices;
-
-namespace ConsultorioMedico.Aplicacao.InputModels
+﻿namespace ConsultorioMedico.Aplicacao.InputModels
 {
     public class ProntuariosInputModel
     {

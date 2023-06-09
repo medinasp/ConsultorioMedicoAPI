@@ -2,6 +2,7 @@
 {
     public class ProntuariosViewModel
     {
+        public Guid Id { get; set; }
         public Guid IdPaciente { get; set; }
         public string NomePaciente { get; set; }
         public string CPFPaciente { get; set; }
