@@ -2,7 +2,7 @@
 using ConsultorioMedico.Aplicacao.InterfacesServices;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CadFunc.API.Controllers
+namespace ConsultorioMedico.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

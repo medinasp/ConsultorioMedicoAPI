@@ -20,18 +20,17 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "CadFuncAPI",
+        Title = "ConsultorioAPI",
         Version = "v1",
         Contact = new OpenApiContact
         {
             Name = "Eneias Medina",
             Email = "medinasp@gmail.com",
             Url = new Uri("https://github.com/medinasp")
-
         }
     });
 
-    var xmlFile = "Consultorio.API.xml";
+    var xmlFile = "ConsultorioMedico.API.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     c.IncludeXmlComments(xmlPath);
 });
